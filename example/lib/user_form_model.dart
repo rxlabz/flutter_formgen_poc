@@ -51,9 +51,9 @@ class UserFormModel extends ValueNotifier {
   String passwordValidator(String value) => validateRequired(value);
 
   Map<String, dynamic> get values => {
-        'login': email,
-        'password': password,
-        'firstname': password,
+        'email': email,
+        'lastname': lastname,
+        'firstname': firstname,
         'password': password,
       };
 
