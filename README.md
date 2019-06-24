@@ -95,14 +95,12 @@ class _UserFormState extends State<UserForm> {
               key: Key('firstnameField'),
               controller: firstnameController,
               decoration: InputDecoration(labelText: 'Firstname'),
-              onSaved: (value) => widget.model.firstname = value,
-              autovalidate: _autovalidate),
+              onSaved: (value) => widget.model.firstname = value),
           TextFormField(
               key: Key('lastnameField'),
               controller: lastnameController,
               decoration: InputDecoration(labelText: 'Lastname'),
-              onSaved: (value) => widget.model.lastname = value,
-              autovalidate: _autovalidate),
+              onSaved: (value) => widget.model.lastname = value),
           TextFormField(
               key: Key('passwordField'),
               controller: passwordController,
