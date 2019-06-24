@@ -136,8 +136,14 @@ class _UserFormScreenState extends State<UserFormScreen> {
 
   @override
   void initState() {
-    formModel.addListener(() => print('submitted values ${formModel.values}'));
+    formModel.addListener(() => print('submitted values ${formModel.value}'));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    formModel.dispose();
+    super.dispose();
   }
 
   @override
