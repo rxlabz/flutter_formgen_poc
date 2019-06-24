@@ -6,7 +6,7 @@ For example, this model :
 
 ```dart
 @RXForm()
-class UserFormModel extends ValueNotifier {
+class UserFormModel extends ValueNotifier<Map<String, String>> {
   @required
   String email;
   String emailValidator(String value) =>
@@ -22,7 +22,7 @@ class UserFormModel extends ValueNotifier {
   String passwordValidator(String value) => validateRequired(value);
 
   @override
-  Map<String, dynamic> get value => {
+  Map<String, String> get value => {
         'email': email,
         'lastname': lastname,
         'firstname': firstname,
