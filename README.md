@@ -21,18 +21,19 @@ class UserFormModel extends ValueNotifier {
   String password;
   String passwordValidator(String value) => validateRequired(value);
 
-  Map<String, dynamic> get values => {
+  @override
+  Map<String, dynamic> get value => {
         'email': email,
         'lastname': lastname,
         'firstname': firstname,
         'password': password,
       };
+  @override
+  set value(_) {}
 
   UserFormModel({this.email, this.password}) : super(null);
 
-  onSubmit() {
-    notifyListeners();
-  }
+  onSubmit() => notifyListeners();
 }
 ```
 
