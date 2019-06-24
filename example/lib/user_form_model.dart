@@ -16,8 +16,14 @@ class _UserFormScreenState extends State<UserFormScreen> {
 
   @override
   void initState() {
-    formModel.addListener(() => print('submitted values ${formModel.values}'));
+    formModel.addListener(() => print('submitted values ${formModel.value}'));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    formModel.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,16 +54,17 @@ class UserFormModel extends ValueNotifier {
   String password;
   String passwordValidator(String value) => validateRequired(value);
 
-  Map<String, dynamic> get values => {
+  @override
+  Map<String, dynamic> get value => {
         'email': email,
         'lastname': lastname,
         'firstname': firstname,
         'password': password,
       };
+  @override
+  set value(_) {}
 
   UserFormModel({this.email, this.password}) : super(null);
 
-  onSubmit() {
-    notifyListeners();
-  }
+  onSubmit() => notifyListeners();
 }
