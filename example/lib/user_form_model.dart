@@ -40,10 +40,8 @@ class UserFormModel extends ValueNotifier {
       validateMail(value) ?? validateRequired(value);
 
   String firstname;
-  String firstnameValidator(String value) => null;
 
   String lastname;
-  String lastnameValidator(String value) => null;
 
   @required
   @obscure

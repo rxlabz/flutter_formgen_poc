@@ -120,7 +120,8 @@ class FormGenerator extends GeneratorForAnnotation<RXForm> {
                   ),
                 'onSaved': CodeExpression(
                     Code('(value) => widget.model.$field = value')),
-                'autovalidate': refer('_autovalidate'),
+                if (visitor.requiredFields.contains(field))
+                  'autovalidate': refer('_autovalidate'),
               }).code,
             refer('RaisedButton').call([], {
               'child': refer('Text').call([literalString('Submit')]),
