@@ -1,4 +1,162 @@
-# Flutter code generation
+# Flutter form generation POC
+
+A little code gneration experimentation : Define a FormModel, and generate a FormWidget
+
+For example, this model : 
+
+```dart
+@RXForm()
+class UserFormModel extends ValueNotifier {
+  @required
+  String email;
+  String emailValidator(String value) =>
+      validateMail(value) ?? validateRequired(value);
+
+  String firstname;
+  String firstnameValidator(String value) => null;
+
+  String lastname;
+  String lastnameValidator(String value) => null;
+
+  @required
+  @obscure
+  String password;
+  String passwordValidator(String value) => validateRequired(value);
+
+  Map<String, dynamic> get values => {
+        'login': email,
+        'password': password,
+        'firstname': password,
+        'password': password,
+      };
+
+  UserFormModel({this.email, this.password}) : super(null);
+
+  onSubmit() {
+    notifyListeners();
+  }
+}
+```
+
+will generate
+
+```dart
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'user_form_model.dart';
+
+// **************************************************************************
+// FormGenerator
+// **************************************************************************
+
+class UserForm extends StatefulWidget {
+  UserForm(this.model);
+
+  final UserFormModel model;
+
+  @override
+  _UserFormState createState() => _UserFormState();
+}
+
+class _UserFormState extends State<UserForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController emailController;
+
+  TextEditingController firstnameController;
+
+  TextEditingController lastnameController;
+
+  TextEditingController passwordController;
+
+  bool _autovalidate = false;
+
+  @override
+  void initState() {
+    emailController = TextEditingController();
+    firstnameController = TextEditingController();
+    lastnameController = TextEditingController();
+    passwordController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+        key: _formKey,
+        child: ListView(children: [
+          TextFormField(
+              key: Key('emailField'),
+              controller: emailController,
+              decoration: InputDecoration(labelText: 'Email'),
+              validator: widget.model.emailValidator,
+              onSaved: (value) => widget.model.email = value,
+              autovalidate: _autovalidate),
+          TextFormField(
+              key: Key('firstnameField'),
+              controller: firstnameController,
+              decoration: InputDecoration(labelText: 'Firstname'),
+              onSaved: (value) => widget.model.firstname = value,
+              autovalidate: _autovalidate),
+          TextFormField(
+              key: Key('lastnameField'),
+              controller: lastnameController,
+              decoration: InputDecoration(labelText: 'Lastname'),
+              onSaved: (value) => widget.model.lastname = value,
+              autovalidate: _autovalidate),
+          TextFormField(
+              key: Key('passwordField'),
+              controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(labelText: 'Password'),
+              validator: widget.model.passwordValidator,
+              onSaved: (value) => widget.model.password = value,
+              autovalidate: _autovalidate),
+          RaisedButton(
+              child: Text('Submit'),
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
+                  widget.model.onSubmit();
+                } else
+                  setState(() => _autovalidate = true);
+              })
+        ]));
+  }
+}
+```
+
+and could be used that way : 
+
+```dart
+class UserFormScreen extends StatefulWidget {
+  @override
+  _UserFormScreenState createState() => _UserFormScreenState();
+}
+
+class _UserFormScreenState extends State<UserFormScreen> {
+  final UserFormModel formModel = UserFormModel();
+
+  @override
+  void initState() {
+    formModel.addListener(() => print('submitted values ${formModel.values}'));
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: UserForm(formModel),
+      ),
+    );
+  }
+}
+```
+
+## Resources
 
 - [BoringShow](https://www.youtube.com/watch?v=mYDFOdl-aWM)
 - [Code generation in Dart : the basics](https://medium.com/flutter-community/part-1-code-generation-in-dart-the-basics-3127f4c842cc)
