@@ -1,0 +1,15 @@
+targets:
+  $default:
+    builders:
+      formgen_generator|formgen_lib:
+        enabled: true
+
+builders:
+  form_generator:
+    target: ":formgen_generator"
+    import: "package:formgen_generator/builder.dart"
+    builder_factories: ["formGenerator"]
+    build_extensions: {".dart": [".formgen_lib.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]

@@ -1,0 +1,9 @@
+name: formgen_lib
+description: a form generation POC
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
