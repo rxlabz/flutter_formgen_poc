@@ -1,6 +1,6 @@
 # Flutter form generation POC
 
-A little code gneration experimentation : Define a FormModel, and generate a FormWidget
+A little code generation experimentation : Define a FormModel, and generate a FormWidget
 
 For example, this model : 
 
@@ -126,7 +126,7 @@ class _UserFormState extends State<UserForm> {
 }
 ```
 
-and could be used that way : 
+and could be used this way : 
 
 ```dart
 class UserFormScreen extends StatefulWidget {
